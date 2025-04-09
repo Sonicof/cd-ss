@@ -1,0 +1,25 @@
+Flex: 	Flex is a tool that generates scanners (also called lexical analyzers) from regular expressions. 
+	It is often used alongside tools like Bison or Yacc to create compilers or interpreters.
+	When you run lex on your 5lex.l file, it generates the lex.yy.c file, which contains code for scanning input according to the rules specified in your .l file.
+
+The -lfl flag: 	This flag tells the C compiler to link against the Flex library.
+		The fl stands for "Flex Library," which contains functions like yylex (the function that Flex generates to perform lexical analysis) and 
+		yyerror (a function for reporting syntax errors, usually customized by the user).
+
+Token Recognition (yylex()) :
+	1.yyparse() first invokes the lexical analyzer function, yylex().
+
+	2.yylex() scans the input based on the regular expressions defined in the Lex file (5lex.l) and returns a token 
+	(a symbol that the parser can work with, such as an identifier, keyword, operator, etc.).
+
+	3.Each time yylex() is called, it reads one token from the input stream, processes it, and returns it to yyparse().
+	
+Push Token into Parser's Input: 
+	1.yyparse() gets the token returned by yylex() and pushes it into the parser's internal input buffer (a stack or queue).
+
+	2.This input is then processed according to the grammar rules defined in the Yacc or Bison file.
+	
+Error Handling:
+	1. If the input doesn't match the expected grammar, yyparse() calls yyerror() (which is defined by the user) to report a syntax error.
+	
+	2.If there were syntax errors, yyparse() would return a non-zero value to indicate failure.
